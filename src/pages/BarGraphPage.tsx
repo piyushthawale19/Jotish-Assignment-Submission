@@ -36,8 +36,11 @@ interface Employee {
 const BarGraphPage: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const employees: Employee[] = location.state?.employees || [];
     const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
+
+    const employees: Employee[] = useMemo(() => {
+        return location.state?.employees || [];
+    }, [location.state?.employees]);
 
     const chartData = useMemo(() => {
         return employees.slice(0, 10).map((emp) => ({

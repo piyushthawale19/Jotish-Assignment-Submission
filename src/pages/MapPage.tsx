@@ -23,7 +23,10 @@ interface Employee {
 const MapPage: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const employees: Employee[] = location.state?.employees || [];
+
+    const employees: Employee[] = useMemo(() => {
+        return location.state?.employees || [];
+    }, [location.state?.employees]);
 
     const cityLocations = useMemo(() => {
         const cityMap = new Map<string, Employee[]>();
